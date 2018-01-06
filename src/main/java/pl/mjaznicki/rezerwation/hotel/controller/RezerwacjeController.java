@@ -30,35 +30,19 @@ public class RezerwacjeController {
 
     @PostMapping("/pokojeWolne")
     public List<Pokoj> pobierzWolnePokoje(@RequestBody WyszukiwaniePokoiDTO wyszukiwaniePokoiDTO){
-        List<Pokoj> pokojeWszystkie  = pokojService.znajdzPoWielkosci(wyszukiwaniePokoiDTO.getWielkosc());
-        List<Pokoj> pokojeTemp = new ArrayList<>();
-        for (Pokoj p: pokojeWszystkie) {
-            List<Rezerwacje> rezerwacjes = rezerwacjaService.znajdzPoPokojach(p);
-            boolean czyZarezerwowany = false;
-            for (Rezerwacje r : rezerwacjes) {
-                if((r.getDataPrzyjazdu().after(wyszukiwaniePokoiDTO.getDataPoczatku()) && r.getDataPrzyjazdu().before(wyszukiwaniePokoiDTO.getDataKonca())) ||
-                        (r.getDataOdjazdu().after(wyszukiwaniePokoiDTO.getDataPoczatku()) && r.getDataOdjazdu().before(wyszukiwaniePokoiDTO.getDataKonca())) );
-                czyZarezerwowany = true;
-            }
-            if(!czyZarezerwowany){
-                pokojeTemp.add(p);
-            }
-        }
+        List<Pokoj> pokojeTemp = pokojService.znajdzWolne(wyszukiwaniePokoiDTO);
         return pokojeTemp;
     }
 
+
+
     @PostMapping("/dokonajRezerwacji")
     public Rezerwacje dokonajRezerwacji(@RequestBody RezerwacjaDTO rezerwacjaDTO){
-        Klient klient = new Klient();
-        klient.setImie(rezerwacjaDTO.getImie());
-        klient.setNazwisko(rezerwacjaDTO.getNazwisko());
-        klient = klientService.zapiszKlienta(klient);
-        Rezerwacje rezerwacja = new Rezerwacje();
-        rezerwacja.setKlient(klient);
-        rezerwacja.setPokoj(rezerwacjaDTO.getPokoj());
-        rezerwacja.setDataOdjazdu(rezerwacjaDTO.getDataKonca());
-        rezerwacja.setDataPrzyjazdu(rezerwacjaDTO.getDataPoczatku());
-        return rezerwacjaService.zapiszRezerwacje(rezerwacja);
+        Klient klient;
+        klient = klientService.zapiszKlienta(rezerwacjaDTO);
+        Rezerwacje rezerwacja;
+        rezerwacja = rezerwacjaService.zapiszRezerwacje(rezerwacjaDTO,klient);
+        return rezerwacja;
     }
 
 }
