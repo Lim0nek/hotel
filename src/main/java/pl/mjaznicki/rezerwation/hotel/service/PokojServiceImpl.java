@@ -21,6 +21,6 @@ public class PokojServiceImpl implements PokojService {
 
     @Override
     public List<Pokoj> znajdzPoWielkosci(int wielkosc) {
-        return pokojRepository.findByWielksc(wielkosc);
+        return pokojRepository.findByWielkosc(wielkosc);
     }
 }

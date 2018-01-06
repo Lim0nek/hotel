@@ -2,9 +2,12 @@ package pl.mjaznicki.rezerwation.hotel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.mjaznicki.rezerwation.hotel.dto.RezerwacjaDTO;
 import pl.mjaznicki.rezerwation.hotel.dto.WyszukiwaniePokoiDTO;
+import pl.mjaznicki.rezerwation.hotel.model.Klient;
 import pl.mjaznicki.rezerwation.hotel.model.Pokoj;
 import pl.mjaznicki.rezerwation.hotel.model.Rezerwacje;
+import pl.mjaznicki.rezerwation.hotel.service.api.KlientService;
 import pl.mjaznicki.rezerwation.hotel.service.api.PokojService;
 import pl.mjaznicki.rezerwation.hotel.service.api.RezerwacjaService;
 
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class PokojController {
 
     @Autowired
@@ -20,8 +24,12 @@ public class PokojController {
     @Autowired
     private RezerwacjaService rezerwacjaService;
 
-    @GetMapping("/pokojeWolne/")
-    public List<Pokoj> pobierzWolnePokoje(@RequestParam WyszukiwaniePokoiDTO wyszukiwaniePokoiDTO){
+    @Autowired
+    private KlientService klientService;
+
+
+    @PostMapping("/pokojeWolne")
+    public List<Pokoj> pobierzWolnePokoje(@RequestBody WyszukiwaniePokoiDTO wyszukiwaniePokoiDTO){
         List<Pokoj> pokojeWszystkie  = pokojService.znajdzPoWielkosci(wyszukiwaniePokoiDTO.getWielkosc());
         List<Pokoj> pokojeTemp = new ArrayList<>();
         for (Pokoj p: pokojeWszystkie) {
@@ -37,6 +45,20 @@ public class PokojController {
             }
         }
         return pokojeTemp;
+    }
+
+    @PostMapping("/dokonajRezerwacji")
+    public Rezerwacje dokonajRezerwacji(@RequestBody RezerwacjaDTO rezerwacjaDTO){
+        Klient klient = new Klient();
+        klient.setImie(rezerwacjaDTO.getImie());
+        klient.setNazwisko(rezerwacjaDTO.getNazwisko());
+        klient = klientService.zapiszKlienta(klient);
+        Rezerwacje rezerwacja = new Rezerwacje();
+        rezerwacja.setKlient(klient);
+        rezerwacja.setPokoj(rezerwacjaDTO.getPokoj());
+        rezerwacja.setDataOdjazdu(rezerwacjaDTO.getDataKonca());
+        rezerwacja.setDataPrzyjazdu(rezerwacjaDTO.getDataPoczatku());
+        return rezerwacjaService.zapiszRezerwacje(rezerwacja);
     }
 
 }

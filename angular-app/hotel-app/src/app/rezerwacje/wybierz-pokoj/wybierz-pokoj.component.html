@@ -1,0 +1,87 @@
+<p><div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <div *ngIf ="!nastepnyEtap">
+        <form novalidate [formGroup]="wyszukiwanieForm" (ngSubmit)="onSubmit()">
+          <fieldset>
+
+            <div class="form-group">
+              <label>Ilu osobowy ma byc pokoj ?</label>
+              <input type="number"
+                     class="form-control"
+                     formControlName="wielkosc">
+            </div>
+
+            <div class="form-group">
+              <label>Data poczatku rezerwacji</label>
+              <input type="date"
+                     class="form-control"
+                     formControlName="dataPoczatku">
+            </div>
+
+            <div class="form-group">
+              <label>Data konca rezerwacji</label>
+              <input type="date"
+                     class="form-control"
+                     formControlName="dataKonca">
+            </div>
+
+
+          </fieldset>
+          <button type="submit" class="btn btn-primary"  [disabled]="!wyszukiwanieForm.valid" >Wyszukaj pokoje</button>
+          <pre>{{wyszukiwanieForm.value | json}}</pre>
+        </form>
+        </div>
+      </section>
+
+      <section class="main">
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Numer Pokoju</th>
+            <th>Ilosc miejsc</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let pokoj of pokoje">
+            <th scope="row">{{pokoj.id}}</th>
+            <td>{{pokoj.numerPokoju}}</td>
+            <td>{{pokoj.wielkosc}}</td>
+            <td>
+              <button type="button" class="btn btn-success" (click)="makeReservation(pokoj)">Dokonaj Rezerwacji</button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </section>
+    </div>
+    <div *ngIf ="nastepnyEtap">
+      <form novalidate [formGroup]="rezerwacjaForm" (ngSubmit)="onSubmit2()">
+        <fieldset>
+
+          <div class="form-group">
+            <label>Imie rezerwujacego</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="imie">
+          </div>
+
+          <div class="form-group">
+            <label>Nazwisko rezerwujacego</label>
+            <input type="text"
+                   class="form-control"
+                   formControlName="nazwisko">
+          </div>
+
+        </fieldset>
+        <button type="submit" class="btn btn-primary"  [disabled]="!rezerwacjaForm.valid" >Zatwierdz rezerwacje</button>
+        <pre>{{rezerwacjaForm.value | json}}</pre>
+      </form>
+    </div>
+  </div>
+</div>

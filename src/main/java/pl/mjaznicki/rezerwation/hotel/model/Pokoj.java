@@ -22,5 +22,5 @@ public class Pokoj {
     private String numerPokoju;
 
     @Column(name = "WIELKOSC", nullable = false)
-    private int wielksc;
+    private int wielkosc;
 }

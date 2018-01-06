@@ -1,4 +1,4 @@
-INSERT INTO POKOJ (ID, WIELKOSC) VALUES
-  (1, 1),
-  (2, 1),
-  (3, 3);
+INSERT INTO POKOJ (ID, WIELKOSC, NUMER_POKOJU) VALUES
+  (1, 1, '1A'),
+  (2, 1, '1B'),
+  (3, 3, '2A');

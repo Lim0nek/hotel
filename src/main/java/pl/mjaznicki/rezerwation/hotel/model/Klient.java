@@ -24,7 +24,5 @@ public class Klient {
     @Column(name="NAZWISKO")
     private String nazwisko;
 
-    @Column(name="EMAIL")
-    private String email;
 
 }

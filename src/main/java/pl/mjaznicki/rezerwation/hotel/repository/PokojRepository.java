@@ -6,5 +6,5 @@ import pl.mjaznicki.rezerwation.hotel.model.Pokoj;
 import java.util.List;
 
 public interface PokojRepository extends JpaRepository<Pokoj,Long> {
-    List<Pokoj> findByWielksc(int wielksc);
+    List<Pokoj> findByWielkosc(int wielksc);
 }
