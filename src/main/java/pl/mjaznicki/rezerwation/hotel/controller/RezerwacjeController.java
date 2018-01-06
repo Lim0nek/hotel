@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-public class PokojController {
+public class RezerwacjeController {
 
     @Autowired
     private PokojService pokojService;
