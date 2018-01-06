@@ -1,0 +1,4 @@
+INSERT INTO POKOJ (ID, WIELKOSC) VALUES
+  (1, 1),
+  (2, 1),
+  (3, 3);
