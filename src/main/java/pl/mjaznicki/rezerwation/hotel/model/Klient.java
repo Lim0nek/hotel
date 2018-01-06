@@ -10,17 +10,21 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "POKOJ")
-public class Pokoj {
+@Table(name = "KLIENT")
+public class Klient {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NUMER_POKOJU")
-    private String numerPokoju;
+    @Column(name="IMIE")
+    private String imie;
 
-    @Column(name = "WIELKOSC", nullable = false)
-    private int wielksc;
+    @Column(name="NAZWISKO")
+    private String nazwisko;
+
+    @Column(name="EMAIL")
+    private String email;
+
 }
