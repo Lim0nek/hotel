@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RezerwacjeRoutingModule } from './rezerwacje-routing.module';
 import { WybierzPokojComponent } from './wybierz-pokoj/wybierz-pokoj.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { UsunRezerwacjeComponent } from './usun-rezerwacje/usun-rezerwacje.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [WybierzPokojComponent]
+  declarations: [WybierzPokojComponent, UsunRezerwacjeComponent]
 })
 export class RezerwacjeModule { }

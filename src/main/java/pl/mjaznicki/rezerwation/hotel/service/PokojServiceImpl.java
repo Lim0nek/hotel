@@ -39,9 +39,12 @@ public class PokojServiceImpl implements PokojService {
             List<Rezerwacje> rezerwacjes = rezerwacjaService.znajdzPoPokojach(p);
             boolean czyZarezerwowany = false;
             for (Rezerwacje r : rezerwacjes) {
-                if((r.getDataPrzyjazdu().after(wyszukiwaniePokoiDTO.getDataPoczatku()) && r.getDataPrzyjazdu().before(wyszukiwaniePokoiDTO.getDataKonca())) ||
-                        (r.getDataOdjazdu().after(wyszukiwaniePokoiDTO.getDataPoczatku()) && r.getDataOdjazdu().before(wyszukiwaniePokoiDTO.getDataKonca())) );
-                czyZarezerwowany = true;
+                if((wyszukiwaniePokoiDTO.getDataPoczatku().after(r.getDataPrzyjazdu()) && wyszukiwaniePokoiDTO.getDataPoczatku().before(r.getDataOdjazdu())||
+                wyszukiwaniePokoiDTO.getDataPoczatku().equals(r.getDataPrzyjazdu())) ||
+                        (wyszukiwaniePokoiDTO.getDataKonca().after(r.getDataPrzyjazdu())&& wyszukiwaniePokoiDTO.getDataKonca().before(r.getDataOdjazdu()))
+                        ||wyszukiwaniePokoiDTO.getDataKonca().equals(r.getDataOdjazdu())){
+                    czyZarezerwowany = true;
+                }
             }
             if(!czyZarezerwowany){
                 pokojeTemp.add(p);

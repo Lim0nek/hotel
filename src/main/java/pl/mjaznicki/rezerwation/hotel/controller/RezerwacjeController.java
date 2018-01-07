@@ -2,6 +2,7 @@ package pl.mjaznicki.rezerwation.hotel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.mjaznicki.rezerwation.hotel.dto.ListaRezerwacjiDTO;
 import pl.mjaznicki.rezerwation.hotel.dto.RezerwacjaDTO;
 import pl.mjaznicki.rezerwation.hotel.dto.WyszukiwaniePokoiDTO;
 import pl.mjaznicki.rezerwation.hotel.model.Klient;
@@ -43,6 +44,17 @@ public class RezerwacjeController {
         Rezerwacje rezerwacja;
         rezerwacja = rezerwacjaService.zapiszRezerwacje(rezerwacjaDTO,klient);
         return rezerwacja;
+    }
+
+    @GetMapping("/pobierzRezerwacje")
+    public List<ListaRezerwacjiDTO> pobierzRezerwacje(){
+        return rezerwacjaService.znajdzWszystkie();
+    }
+
+    @DeleteMapping("/usunRezerwacje/{id}")
+    public void usunRezerwacje(@PathVariable(value = "id") Long id){
+        rezerwacjaService.usunRezerwacje(id);
+
     }
 
 }

@@ -1,0 +1,25 @@
+<section class="main">
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Numer Pokoju</th>
+      <th>Data Początku</th>
+      <th>Data Konca</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let r of rezerwacje">
+      <th scope="row">{{r.id}}</th>
+      <td>{{r.numerPokoju}}</td>
+      <td>{{r.dataPrzyjazdu| date: 'yyyy-MM-dd'}}</td>
+      <td>{{r.dataOdjazdu| date: 'yyyy-MM-dd'}}</td>
+      <td>
+        <button type="button" class="btn btn-success" (click)="deleteRezerwacja(r.id)">Usun Rezerwacje</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
