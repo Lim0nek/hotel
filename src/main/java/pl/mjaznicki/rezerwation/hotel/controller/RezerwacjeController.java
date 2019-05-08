@@ -56,5 +56,6 @@ public class RezerwacjeController {
         rezerwacjaService.usunRezerwacje(id);
 
     }
+    String test;
 
 }
